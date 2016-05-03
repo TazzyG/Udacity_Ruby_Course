@@ -23,11 +23,9 @@ code = "M.E?CIQN E?RS, D?NA EQC,IN S,,I Z?TQAM,"
 # ---------------------------------------------------------------
 
 # All your code should go between these lines!
-code = code.reverse.chop.reverse
-code[11]="A EW? O" 
-code = code.delete("Q")
-code = code.delete("?")
-code = code.delete(",")
+code = code.slice(1..39)
+code = code.insert(11,"A EW? O") 
+code = code.delete("Q""?"",")
 code = code.downcase
 code = code.reverse
 code[0] = code[0].capitalize
