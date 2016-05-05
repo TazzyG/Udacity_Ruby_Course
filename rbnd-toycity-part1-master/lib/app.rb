@@ -58,9 +58,9 @@ end
 
 # For each brand in the data set:
 toy_brands = products_hash["items"].map { |item| item["brand"] }.uniq
-  toy_brands.each_with_index do |brand, index|
-    
-  brands_toys = products_hash["items"].select{ |item| item["brand"] == brand }
+  toy_brands.each do |brand|
+  brands_toys = products_hash["items"].select{ |item| item["brand"] == brand }  
+  
 
   total_stock_brand = 0
   total_full_price_brand = 0
@@ -68,7 +68,13 @@ toy_brands = products_hash["items"].map { |item| item["brand"] }.uniq
   total_sales = 0
 
   brands_toys.each {|toy| total_stock_brand += toy["stock"].to_i }
-  brands_toys.each {|toy| total_full_price_brand += toy["full-price"].to_f}  
+  
+  brands_toys.each do |item| 
+    item["purchases"].each do |purchase|
+      total_full_price_brand += item["full-price"].to_f 
+    end
+  end  
+
   brands_toys.each {|toy| total_brand_products += toy["purchases"].length}
   brands_toys.each {|toy| total_sales += toy["purchases"]["price".to_i]["price"]}
 
@@ -79,13 +85,16 @@ toy_brands = products_hash["items"].map { |item| item["brand"] }.uniq
   # Count and print the number of the brand's toys we stock
   
   puts "PART 1*************Total Brand Products: #{total_brand_products}"
-  puts "PART 2*************Total Retail : #{total_full_price_brand.round(2)}"
+  puts "PART 2*************Total Retail : #{(total_full_price_brand.round(2))}"
+
+
+
   
   puts "Number of Products: #{total_stock_brand}"
 
   # Calculate and print the average price of the brand's toys
 
-  puts "Average Price $#{(total_full_price_brand.round/total_brand_products)}"
+  puts "Average Price $#{(total_full_price_brand.round(2)/total_brand_products).round(2)}"
   
   
 
