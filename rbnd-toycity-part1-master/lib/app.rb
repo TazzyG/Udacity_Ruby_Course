@@ -61,47 +61,43 @@ toy_brands = products_hash["items"].map { |item| item["brand"] }.uniq
   toy_brands.each do |brand|
   brands_toys = products_hash["items"].select{ |item| item["brand"] == brand }  
   
-
+# Calculations 
+# Begin Loops
   total_stock_brand = 0
   total_full_price_brand = 0
   total_brand_products = 0
   total_sales = 0
 
+# Print the name of the brand
   brands_toys.each {|toy| total_stock_brand += toy["stock"].to_i }
-  
+  puts "#{brand}"
+   puts "*"*20
+
+# Count and print the number of the brand's toys we stock
+  brands_toys.each {|toy| total_brand_products += toy["purchases"].length}
+  puts "Number of Toys in Stock: #{total_stock_brand}"
+
+# Calculate and print the average price of the brand's toys
   brands_toys.each do |item| 
     item["purchases"].each do |purchase|
       total_full_price_brand += item["full-price"].to_f 
     end
   end  
-
-  brands_toys.each {|toy| total_brand_products += toy["purchases"].length}
-  brands_toys.each {|toy| total_sales += toy["purchases"]["price".to_i]["price"]}
-
-  # Print the name of the brand
-
-   puts "#{brand}"
-   puts "*"*20
-  # Count and print the number of the brand's toys we stock
-  
-  puts "PART 1*************Total Brand Products: #{total_brand_products}"
-  puts "PART 2*************Total Retail : #{(total_full_price_brand.round(2))}"
-
-
-
-  
-  puts "Number of Products: #{total_stock_brand}"
-
-  # Calculate and print the average price of the brand's toys
-
+  # puts "PART 1*************Total Brand Products: #{total_brand_products}"
+  # puts "PART 2*************Total Retail : #{(total_full_price_brand.round(2))}"
+  # learned about looping through purchases. 
   puts "Average Price $#{(total_full_price_brand.round(2)/total_brand_products).round(2)}"
   
-  
-
-  # Calculate and print the total revenue of all the brand's toy sales combined
-  puts "Total Sales: $#{total_sales.round(2)}"
-   
-  puts ""    
-
+# Calculate and print the total revenue of all the brand's toy sales combined
+  brands_toys.each do |item|
+    item["purchases"].each do |el|   
+      total_sales += el["price"]
+    end
+  end
+  puts "Total Sales: $#{total_sales.round(2)}"   
+  puts ""  
+  # Learned loops is not enough, needed to use |el|
 end
+
+puts "all done, that was a hard one! :-)" 
 
