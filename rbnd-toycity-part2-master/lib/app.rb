@@ -3,15 +3,14 @@ require 'json'
 # and transform the string into a usable hash
 
 # methods go here
-def start  
-	def setup_files
-		path = File.join(File.dirname(__FILE__), '../data/products.json')
-		file = File.read(path)
-		$products_hash = JSON.parse(file)
-		$report_file = File.new("report.txt", "w+")
-		$info = $products_hash["items"]
-	end
-	def create_report
+		def setup_files
+			path = File.join(File.dirname(__FILE__), '../data/products.json')
+			file = File.read(path)
+			$products_hash = JSON.parse(file)
+			$report_file = File.new("report.txt", "w+")
+			#$info = $products_hash["items"]
+		end
+		
 		def border
 		puts "*" * 50
 		end
@@ -24,6 +23,9 @@ def start
 			puts "|____/ \\__,_|_|\\___||___/ |_|\\_ \\___| .__/ \\___/|_|   \\__|"
 			puts "                                    |_|                   "	
 			puts ""
+			puts border
+			puts "The Current date is: #{Time.now.strftime("%B %d, %Y")}"
+
 			end
 			def ascii_products
 				puts "                     _            _       "
@@ -56,17 +58,9 @@ def start
 				puts "Current options are: 1 for sales report, 2 for products, and 3 for brands"
 			end
 		end
-	
-		def print_data
-			def products_section
+		def create_report
 
-			end
 
-			def brands_section
-			end
-			products_section
-			brands_section
-		end
 
 		# ****** Call master methods here **************
 
@@ -93,7 +87,14 @@ def start
 		# Count and print the number of the brand's toys we stock
 		# Calculate and print the average price of the brand's toys
 		# Calculate and print the total sales volume of all the brand's toys combined
+		
 	end # end of create_report method
-	create_report
-end # end of start method
-start
+
+	def start  
+	setup_files # load, read, parse, and create the files
+  create_report # create the report!	
+end
+	start
+ 
+
+
